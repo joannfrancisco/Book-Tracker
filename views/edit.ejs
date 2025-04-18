@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Review</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Review</h1>
+    <form class="floating-form" action="/edit/<%= book.id %>" method="POST">
+      <div class="form-group">
+        <input class="input" id="title" name="title" value="<%= book.title %>" required />
+        <label for="title">Title</label>
+      </div>
+      <div class="form-group">   
+        <input class="input" id="author" name="author" value="<%= book.author %>" required />
+        <label for="author">Author</label>
+      </div>
+      <div class="form-group">
+        <textarea class="textarea" id="review" name="review"><%= book.review %></textarea>
+        <label for="review">Review</label>
+      </div>
+      <div class="form-group">
+        <input class="input" id="rating" name="rating" type="number" min="0" max="5" value="<%= book.rating %>" required />
+        <label for="rating">Rating</label>
+      </div>
+      <div class="form-group">
+        <input class="input" id="date_read" name="date_read" type="date" value="<%= book.date_read.toISOString().split('T')[0] %>" required />
+        <label for="date_read">Date Read</label>
+      </div>
+      <div class="form-group">
+        <% if (book.olid) { %>
+          <input class="input" id="olid" name="olid" value="<%= book.olid %>"/>
+        <% } else { %>
+          <input name="olid" placeholder="Open Library ID (optional)" />
+        <% } %>
+        <label for="olid">OLID</label>
+      </div>
+      <button type="submit">Update Review</button>
+    </form>
+    <div class="pagination"><a href="/">Back to Home</a></div>
+  </div>
+  <footer>
+    <p>&copy; 2025 Book Tracker. All rights reserved.</p>
+    <p>Created by Jo Ann Francisco</p>
+  </footer>
+</body>
+</html>

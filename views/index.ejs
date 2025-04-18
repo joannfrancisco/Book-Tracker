@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Tracker</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+
+    <h1>My Book Tracker</h1>
+    <p>Welcome to my personal book tracker! Here, I can manage my reading list, add new books, and keep track of my reviews.</p>
+    <form method="GET" action="/">
+      <input name="search" placeholder="Search" value="<%= search %>" />
+      <select name="sort">
+        <option value="recency" <%= sort === "recency" ? 'selected' : '' %>>Recent</option>
+        <option value="rating" <%= sort === "rating" ? 'selected' : '' %>>Rating</option>
+      </select>
+      <button type="submit">Sort/Search</button>
+    </form>
+
+    <div class="pagination"><a href="/add">Add New Book</a></div>
+
+    <% books.forEach(book => { %>
+      <div class="book">
+        <% if (book.cover_url) { %>
+          <img src="<%= book.cover_url %>" alt="Book Cover">
+        <% } else { %>
+          <div style="width:180px; height:180px;"></div>
+        <% } %>
+        <div class="book-details">
+          <h2><%= book.title %></h2>
+          <p><strong>Author:</strong> <%= book.author %></p>
+          <p><strong>Rating:</strong> <%= book.rating %>/5
+            <%= '⭐'.repeat(book.rating) %>
+          </p>
+          <p><strong>Date Read:</strong> <%= book.date_read.toISOString().split('T')[0] %></p>
+          <p><%= book.review %></p>
+          <div class="actions">
+            <a href="/edit/<%= book.id %>">Edit</a>
+            <form action="/delete/<%= book.id %>" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+
+    <% if (totalPages > 1) { %>
+      <div class="pagination">
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <a href="/?page=<%= i %>&search=<%= search %>&sort=<%= sort %>" <%= currentPage === i ? 'style="font-weight:bold;"' : '' %>><%= i %></a>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Book Tracker. All rights reserved.</p>
+    <p>Created by Jo Ann Francisco</p>
+  </footer>
+</body>
+</html>
