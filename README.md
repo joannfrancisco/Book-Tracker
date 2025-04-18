@@ -1,5 +1,5 @@
 # Book-Tracker
-This is a simple Express.js application that integrates with the OpenLibrary API to help you search for books and manage personal reviews.
+This is a simple and modern web application built with Express.js, Node.js, Axios, EJS, and the OpenLibrary API. It allows users to search for books and manage their personal book reviews.
 
 Setup Instructions:
 
